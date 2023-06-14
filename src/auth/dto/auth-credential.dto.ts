@@ -4,7 +4,7 @@ export class AuthCredentialDto {
   @IsString()
   @MinLength(6)
   @MaxLength(20)
-  username: string;
+  USERNAME: string;
 
   @IsString()
   @MinLength(8)
@@ -12,5 +12,5 @@ export class AuthCredentialDto {
   @Matches(/^[a-zA-Z0-9]*$/, {
     message: 'password only accept english and number',
   })
-  password: string;
+  PASSWORD: string;
 }

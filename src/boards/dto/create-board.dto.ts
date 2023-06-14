@@ -2,8 +2,8 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreateBoardDto {
   @IsNotEmpty()
-  title: string;
+  TITLE: string;
 
   @IsNotEmpty()
-  description: string;
+  DESCRIPTION: string;
 }
