@@ -4,6 +4,7 @@ import { CreateBoardDto } from './dto/create-board.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardRepository } from './board.repository';
 import { Board } from './board.entity';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class BoardsService {
@@ -11,15 +12,11 @@ export class BoardsService {
     @InjectRepository(BoardRepository) private boardRepository: BoardRepository,
   ) {}
 
-  async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
-    const { TITLE, DESCRIPTION } = createBoardDto;
-    const board = this.boardRepository.create({
-      TITLE,
-      DESCRIPTION,
-      STATUS: BoardStatus.PUBLIC,
-    });
-    await this.boardRepository.save(board);
-    return board;
+  async createBoard(
+    createBoardDto: CreateBoardDto,
+    USER: User,
+  ): Promise<Board> {
+    return this.boardRepository.createBoard(createBoardDto, USER);
   }
 
   async getBoardById(ID: number): Promise<Board> {
@@ -32,8 +29,13 @@ export class BoardsService {
     return found;
   }
 
-  async getAllBoards(): Promise<Board[]> {
-    return this.boardRepository.find();
+  async getAllBoards(USER: User): Promise<Board[]> {
+    const query = this.boardRepository.createQueryBuilder('BOARD');
+
+    query.where('BOARD.uSERID=:USERID', { USERID: USER.ID });
+
+    const BOARDS = await query.getMany();
+    return BOARDS;
   }
 
   async updateBoardStatus(ID: number, STATUS: BoardStatus): Promise<Board> {
