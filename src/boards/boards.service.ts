@@ -46,11 +46,13 @@ export class BoardsService {
     return BOARD;
   }
 
-  async deleteBoard(ID: number): Promise<void> {
-    const result = await this.boardRepository.delete(ID);
+  async deleteBoard(ID: number, USER: User): Promise<void> {
+    const result = await this.boardRepository.delete({
+      ID,
+      USER: { ID: USER.ID },
+    });
     if (result.affected === 0) {
       throw new NotFoundException('존재하지 않는 게시글입니다.');
     }
-    console.log('result : ', result);
   }
 }
