@@ -16,3 +16,5 @@ TypeOrmModule.forFeature([Board])로 변경하고
 exports에 Service를 추가해준뒤
 
 providers에 Repository를 추가한다.
+
+됐냐?
