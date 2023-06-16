@@ -6,6 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "dev": "concurrently --kill-others-on-fail \"npm run start:dev\" \"npm run client\"",
+    "client": "cd client && ng serve",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
