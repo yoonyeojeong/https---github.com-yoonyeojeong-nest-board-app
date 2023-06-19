@@ -23,7 +23,7 @@ export class AuthCredentialDto {
   PASSWORD: string;
 
   @IsString()
-  USERMAIL: string;
+  EMAIL: string;
 
   @IsString()
   @MinLength(4)
@@ -46,9 +46,6 @@ export class AuthCredentialDto {
 
   @IsBoolean()
   GENDER: boolean;
-
-  @IsDateString()
-  BIRTHDAY: Date;
 
   @IsString()
   @Matches(/^[0-9]*$/, {
@@ -76,4 +73,7 @@ export class AuthCredentialDto {
 
   @IsString()
   LANGUAGE: string;
+
+  @IsString()
+  BIRTHDAY: string;
 }
