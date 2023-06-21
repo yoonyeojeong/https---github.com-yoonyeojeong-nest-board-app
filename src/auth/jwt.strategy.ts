@@ -6,29 +6,12 @@ import { Knex } from 'knex';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    // @InjectRepository(UserRepository)
-    // private userRepository: UserRepository,
-    @InjectConnection() private readonly knex: Knex,
-  ) {
+  constructor(@InjectConnection() private readonly knex: Knex) {
     super({
       secretOrKey: 'news9test',
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
-
-  // async validate(payload) {
-  //   const { EMAIL } = payload;
-  //   const USER: User = await this.userRepository.findOne({
-  //     where: { EMAIL },
-  //   });
-
-  //   if (!USER) {
-  //     throw new UnauthorizedException();
-  //   }
-
-  //   return USER;
-  // }
 
   async validate(payload) {
     const { EMAIL } = payload;
